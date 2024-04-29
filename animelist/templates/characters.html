@@ -1,0 +1,30 @@
+  <div class="character-main-grid">
+    <span>Main</span>
+    <div class="scrollable-div">
+      {% for character in character_data %}
+        {% if character.role == 'Main' %}
+          {% url 'character-info' character.mal_id|urlencode character.name|urlencode as character_url %}
+          <div class="character-image-container">
+            <a href="{{ character_url }}">
+              <img src="{{character.img}}" alt="{{character.name}}">
+            </a>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+  <div class="character-support-grid">
+    <span>Supporting</span>
+    <div class="scrollable-div">
+      {% for character in character_data %}
+        {% if character.role == 'Supporting' %}
+          {% url 'character-info' character.mal_id|urlencode character.name|urlencode as character_url %}
+          <div class="character-image-container">
+            <a href="{{character_url}}">
+              <img src="{{character.img}}" alt="{{character.name}}">
+            </a>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>

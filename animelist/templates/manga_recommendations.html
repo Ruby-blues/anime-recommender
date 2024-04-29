@@ -1,0 +1,114 @@
+{% extends 'base.html' %}{% load static %}
+{%block type%}Manga{%endblock%}
+{%block link%}{% url 'manga-page' %}{%endblock%}
+{%block link2%}{% url 'manga-page' %}{%endblock%}
+{%block link3%}{% url 'manga-page' %}{%endblock%}
+
+<!--make card like the manga and anime card but with less info for the anime recommendation page-->
+{%block content%}
+<link rel="stylesheet" href="{% static 'css/anime_recommendations.css' %}">
+<center> <h1 class="heading">Recommendations</h1> </center>
+<div class="anime-list-grid">
+  {% for manga in manga_api_data %}
+  <div class="card">
+    {% url 'manga-info-page' manga.mal_id|urlencode manga.default_title|urlencode as manga_url %}
+      <div class="img-container">
+        <a class="card-link" href="{{ manga_url }}">{{ name }}
+          <img class="anime-img" src="{{manga.img}}" alt="">
+        </a>
+      </div>
+      <div class="info-grid">
+        <a class="card-link" href="{{ manga_url }}">{{ name }}
+          <div class="title">
+              <span class="name">{{manga.default_title}}</span>
+          </div>
+        </a>
+        <div class="bottom">
+          <div class="icons-container">
+            {%if request.user.is_authenticated %}
+              <button id="liked-{{ manga.mal_id }}" class="liked-btn" onclick="like({{ manga.mal_id }}, '{{manga.type}}')">
+                <img id="likedImg-{{ manga.mal_id }}" class="liked" src="{% if manga.like %}{% static 'icons/heart-fill.svg' %}{% else %}{% static 'icons/heart.svg' %}{%endif%}" alt="" />
+              </button>
+
+              <button id="later-{{ manga.mal_id }}" class="watch-later-btn" onclick="later({{ manga.mal_id }}, '{{manga.type}}')">
+                <img id="laterImg-{{ manga.mal_id }}" class="book-mark" src="{% if manga.later %}{% static 'icons/bookmark-plus-fill.svg' %}{%else%}{% static 'icons/bookmark-plus.svg' %}{%endif%}" alt="" />
+              </button>
+            {%endif%}
+          </div>
+        </div>
+      </div>
+  </div>
+  {% endfor %}
+<script>
+  function later(mal_id, type) {
+    console.log("Adding to watch later:", mal_id);
+    var csrftoken = getCookie('csrftoken');
+    // Send mal_id to your Django view to add to watch later list
+    $.ajax({
+      url: "{% url 'manga-page' %}",
+      type: "POST",
+      headers: { "X-CSRFToken": csrftoken },
+      data: {'mal_id': mal_id, 'status': 'later', 'type': type},
+      success: function(response) {
+        let image = document.getElementById(`laterImg-${mal_id}`);
+        if (response.later) {
+          image.src = '/static/icons/bookmark-plus-fill.svg';
+        }
+        else {
+          image.src = '/static/icons/bookmark-plus.svg';
+        }
+        // Handle success response if needed
+      },
+      error: function(xhr, errmsg, err) {
+        console.log(xhr.status + ": " + xhr.responseText);
+        // Handle error if needed
+      }
+    });
+  }
+
+  function like(mal_id, type) {
+    console.log("Liking:", mal_id);
+    var csrftoken = getCookie('csrftoken');
+    // Send mal_id to your Django view to like the anime
+    $.ajax({
+      url: "{% url 'manga-page' %}",
+      type: "POST",
+      headers: { "X-CSRFToken": csrftoken },
+      data: {'mal_id': mal_id, 'status': 'like', 'type': type},
+      success: function(response) {
+        console.log(response);
+        let image = document.getElementById(`likedImg-${mal_id}`);
+        if (response.like) {
+          console.log(response);
+            image.src = '/static/icons/heart-fill.svg';
+          }
+          else {
+            image.src = '/static/icons/heart.svg';
+          }
+          // Handle success response if needed
+        },
+        error: function(xhr, errmsg, err) {
+          console.log(xhr.status + ": " + xhr.responseText);
+          // Handle error if needed
+        }
+    });
+  }
+
+  // Function to get CSRF cookie
+  function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+      var cookies = document.cookie.split(';');
+      for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i].trim();
+        // Does this cookie string begin with the name we want?
+        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+</script></div>
+{%endblock%}

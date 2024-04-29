@@ -1,0 +1,181 @@
+{% load static %}
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <title>Aurora</title>
+    <script src="{% static 'javascript/carousel.js' %}" ></script>
+    <link rel="stylesheet" href="{% static 'css/header.css' %}" />
+    <script src="{% static 'javascript/base.js' %}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="{% static 'css/loader.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/page_change.css' %}" />
+    <script src="{% static 'javascript/loader.js' %}"></script>
+    <script src="{% static 'javascript/dropdown.js' %}"></script>
+
+
+  </head>
+  <body>
+    {% include 'loading.html' %}
+    <header>
+      <div class="head">
+        <div class="left-section">
+          <div class="dropdown">
+            <div class="pic-container">
+              <img
+                onclick="userInfo()"
+                class="user-pic-icon"
+                src="{%if request.user.is_authenticated %}{{request.user.profile_pic.url}}{% else %}{% static 'icons/user.png' %}{%endif%}"
+                alt="user-icon"
+              />
+            </div>
+            <div id="userInfo" class="user-content">
+              {% if request.user.is_authenticated %}
+              <a href="{% url 'logout' %}">
+                <div>
+                  <img src="{% static 'icons/logout.svg' %}" alt="">
+                  <span>Logout</span>
+                </div>
+              </a>
+              <a href="{% url 'edit' %}">
+                <div>
+                  <img src="{% static 'icons/edit_user.svg' %}" alt="">
+                  <span>Edit profile</span>
+                </div>
+              </a>
+              {% else %}
+              <a href="{% url 'register' %}">
+                <div>
+                  <img src="{% static 'icons/add_user.svg' %}" alt="">
+                  <span>Register</span>
+                </div>
+              </a>
+              <a href="{% url 'login' %}">
+                <div>
+                  <img src="{% static 'icons/login.svg' %}" alt="">
+                  <span>
+                    Login
+                  </span>
+                </div>
+              </a>
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="dropdown" >
+            <button onclick="dropdown()" class="dropdown-button" type="button">
+              Menu
+            </button>
+            <div id="myDropdown" class="dropdown-content">
+              {% for name, links in dropdown_items %}
+              <a href="{%url links %}">{{name}}</a>
+              {% endfor %}
+            </div>
+          </div>
+          {% if request.user.is_authenticated%}
+          <a href="{% url 'later-anime-page' %}"><img src="{%static 'icons/bookmark-plus-fill.svg' %}" alt="" class="menu-icon"></a>
+          <a href="{% url 'liked-page' 'all' %}"><img src="{%static 'icons/heart-fill.svg' %}" alt="" class="menu-icon"></a>
+          {% endif %}
+        </div>
+
+        <div class="middle-section">
+          <span class="logo-first"><a class="logo-link" href="{%block link%}{%endblock%}">{%block type%}{%endblock%}</a></span>
+          <span class="logo-second"><a class="logo-link" href="{%block link2%}{%endblock%}">list</a></span>
+          <span class="logo-third"><a class="logo-link" href="{%block link3%}{%endblock%}">!</a></span>
+        </div>
+
+
+        <form class="right-section" method="get" action="{% url 'searched-media'%}">
+          {% csrf_token %}
+
+          <input class="search-bar" type="search" placeholder="{% if anime_api_data %}Search for animes {% else %} Search for mangas {% endif %}" name="searched"/>
+          <input hidden="hidden" value="{% if anime_api_data %}anime{% else %}manga{% endif %}" type="text" name="type"/>
+          <button class="search-button" type="submit">
+            <img
+              class="search-icon"
+              src="{% static 'icons/search.svg' %}"
+              alt=""
+            />
+          </button>
+        </form>
+
+      </div>
+    </header>
+    <section>
+    {% if pages %}
+    {% for page in pages %}
+    <div class="center">
+        <form class="page-change" method="post" action="">
+          {% csrf_token %}
+          <div>
+            {% if page_number > 1 %}
+                <button class="back-btn" type="submit" value="Back" name="back" >
+                  <img class="back" src="{% static 'icons/previous.png' %}" alt="">
+                </button>
+            {% endif %}
+          </div>
+          <div>
+            <span>
+              <span id="pageNumber">{{ page_number }}</span> of {{page.last_page}}
+            </span>
+            <input type="text" hidden="hidden" value="{{ page_number }}" name="page_number" >
+          </div>
+          <div>
+            {% if page.next_page %}
+                <button class="next-btn" type="submit" value="Next" name="next">
+                  <img class="next" src="{% static 'icons/next.png' %}" alt="next">
+                </button>
+            {% endif %}
+          </div>
+        </form>
+    </div>
+    {% endfor %}
+    <br>
+    <br>
+    {% endif %}
+
+    {% if filter_options %}
+    <div class="filter">
+  <img class="show-filters" onclick="show_filters()" src="{% static 'icons/filter.png' %}" alt="">
+  <div class="filter-options">
+    {% for filters in filter_options %}
+      {% if filters.name == 'genres' %}
+
+      <div class="filter-types">
+        <button class="filter-button">{{filters.name}}</button>  <!-- make a table for the genres -->
+         <div class="filter-dropdown-content">
+           <div class="genre-grid">
+             {% for options in filters.options %}
+             <div class="grid-genre-item">
+               <a href="{{request.path}}?{{filters.name}}={{options.name}}">{{options.name}}</a>
+             </div>
+             {% endfor %}
+           </div>
+         </div>
+      </div>
+
+        {% else %}
+          <div class="filter-types">
+            <button class="filter-button">{{filters.name}}</button>
+              <div class="filter-dropdown-content">
+                {% for options in filters.options %}
+                  <a href="{{request.path}}?{{filters.name}}={{options}}">{{options}}</a>
+                {% endfor %}
+              </div>
+          </div>
+    {% endif %}
+    {% endfor %}
+      <div class="filter-types">
+        <a href="{{request.path}}"><button class="filter-button">All</button></a>
+      </div>
+  </div>
+</div>
+    {% endif %}
+
+      <main>
+        {% block content %} {% endblock %}
+      </main>
+  </section>
+ </body>
+
+</html>

@@ -1,0 +1,151 @@
+body {
+    font-family: arial;
+}
+.grid {
+    display: grid;
+    grid-template-rows: auto auto auto;
+    grid-row-gap: 15px;
+}
+
+header a {
+    color: white;
+    text-decoration: none;
+}
+header a:hover {
+    color: red;
+}
+.name-header {
+    border-style: double;
+    border-width: 3px
+    border-color: red;
+    border-radius: 4px;
+}
+.name-header h1 {
+    margin-left: 20px;
+}
+.character-info-grid {
+    display: grid;
+    grid-template-columns: 20% 1fr;
+    gap: 10px;
+}
+.img-container {
+    width: 100%;
+    position: relative;
+    border-radius: 8px;
+}
+.image {
+    border-width: 2px;
+    border-style: solid;
+    width: 100%;
+    border-radius: 8px;
+    height: 422px;
+}
+.info-grid {
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-rows-gap: 10px;
+}
+.container-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-row-gap: 8px;
+}
+.scrollable-div {
+    width: 380px; /* Adjust width as needed */
+    height: 200px; /* Adjust height as needed */
+    overflow: auto; /* This will add a scroll bar when content overflows */
+    border: 1px solid #ccc; /* Optional: Add border for visual clarity */
+    padding: 10px; /* Optional: Add padding for spacing */
+    border-radius: 5px;
+}
+  /* Customizing scrollbar */
+.scrollable-div::-webkit-scrollbar {
+    width: 10px; /* Width of the scrollbar */
+}
+
+.scrollable-div::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Color of the scrollbar track */
+}
+
+.scrollable-div::-webkit-scrollbar-thumb {
+    background: rgb(25, 135, 84); /* Color of the scrollbar thumb */
+    border-radius: 6px; /* Rounded corners of the scrollbar thumb */
+}
+
+.scrollable-div::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Color of the scrollbar thumb on hover */
+}
+.in-container {
+    padding: 5px;
+    width: auto;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+.in-container h2 {
+    margin-top: 0px;
+    margin-bottom: 5px;
+}
+.in-container a {
+    text-decoration: none;
+    color: white;
+}
+.grid-columns-container {
+    display: grid;
+    grid-template-columns: 135px auto;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    text-decoration: none;
+    color: white;
+}
+.picture-container {
+    width: 130px;
+    height: 130px;
+    border-radius: 8px;
+}
+.picture {
+    width: 100%;
+    height: 100%;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+
+}
+.content {
+    display: grid;
+    grid-template-rows: auto auto;
+    align-items: center;
+}
+.content span {
+    font-size: 20px;
+    margin-left: 5px;
+}
+.character-info h2 {
+    margin-bottom: 3px;
+    margin-top: 0px;
+    text-decoration: underline;
+}
+.character-about {
+    border: 1px solid #ccc;
+    padding: 5px;
+    border-radius: 5px;
+    height: auto;
+    max-height: 120px;
+    overflow: auto;
+}
+.character-about::-webkit-scrollbar {
+    width: 10px; /* Width of the scrollbar */
+}
+
+.character-about::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Color of the scrollbar track */
+}
+
+.character-about::-webkit-scrollbar-thumb {
+    background: rgb(25, 135, 84); /* Color of the scrollbar thumb */
+    border-radius: 6px; /* Rounded corners of the scrollbar thumb */
+}
+
+.character-about::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Color of the scrollbar thumb on hover */
+}

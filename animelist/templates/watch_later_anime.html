@@ -1,0 +1,15 @@
+    {% extends 'likes_later_temp.html' %}
+    {% load static %}
+
+    {%block type%}Watch{%endblock%}
+{%block content%}
+{% url 'liked-page' page_obj.number|urlencode as url %}
+
+    <div class="center">
+        <div class="button-container">
+            <a href="{% url 'later-anime-page' %}"><button class="first-filter">ANIME</button></a>
+            <a href="{% url 'later-manga-page' %}"><button class="end-filter">MANGA</button></a>
+        </div>
+    </div>
+    {% include 'likes_later_card_temp.html' %}
+{%endblock%}

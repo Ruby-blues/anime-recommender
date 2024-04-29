@@ -1,0 +1,72 @@
+.page-change {
+  background-color: black;
+  height: 55px;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  align-items: center;
+  justify-items: center;
+  width: 450px;
+  border-color: rgb(25, 135, 84);
+  border-style: solid;
+  border-radius: 5px;
+  margin: 0px;
+  padding: 0px;
+}
+.next,
+.back {
+  width: 32px;
+}
+.next-btn,
+.back-btn {
+  display: inline;
+  width: 45px;
+  background-color: transparent;
+  border: none;
+  transition: all 0.2s;
+  font-size: 16px;
+}
+.next:hover,
+.back:hover {
+  transform: scale(110%);
+}
+.center {
+    padding-top: 15px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.button-container {
+  display: flex;
+  justify-self: center;
+  margin-top: 20px;
+}
+.first-filter,
+.middle-filter,
+.end-filter{
+  display: inline-block;
+  height: 40px;
+  width: 100px;
+  background-color: rgb(25, 135, 84);
+  margin: 0px;
+  border: 1px solid;
+  transition: all 0.17s ease-in-out;
+}
+.first-filter:hover,
+.middle-filter:hover,
+.end-filter:hover {
+  background: rgb(29, 139, 88);
+}
+.first-filter {
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  border-right: 0px;
+}
+.middle-filter {
+  border-right: none;
+  border-left: none;
+}
+.end-filter {
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  border-left: 0px;
+}

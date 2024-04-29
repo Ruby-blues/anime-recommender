@@ -1,0 +1,192 @@
+{% load static %}
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'css/more_manga_info.css' %}">
+    <link rel="stylesheet" href="{% static 'css/loader.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/character.css' %}" />
+    <script src="{% static 'javascript/loader.js' %}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>{{name.name}}</title>
+</head>
+<body>
+{% include 'loading.html' %}
+{% for manga in manga_api_data %}
+    <div class="grid">
+        <header>
+             <div class="name-header">
+                <h1><a href="{{manga.url}}">{% if manga.english_title %} {{manga.english_title}} {%else%} {{manga.default_title}} {% endif %}</a></h1>
+            </div>
+        </header>
+        <div class="manga-info-grid">
+            <div class="img-container">
+                <img class="image" src="{{manga.img}}" alt="{{manga.default_title}}">
+                <div class="icons-container">
+                    {% if request.user.is_authenticated %}
+                    <button id="liked-{{ manga.mal_id }}" class="liked-btn" onclick="like({{ manga.mal_id }}, '{{manga.type}}')">
+                        <img id="likedImg-{{ manga.mal_id }}" class="liked" src="{% if manga.like %}{% static 'icons/heart-fill.svg' %}{% else %}{% static 'icons/heart.svg' %}{%endif%}" alt="" />
+                    </button>
+
+                    <button id="later-{{ manga.mal_id }}" class="watch-later-btn" onclick="later({{ manga.mal_id }}, '{{manga.type}}')">
+                        <img id="laterImg-{{ manga.mal_id }}" class="book-mark" src="{% if manga.later %}{% static 'icons/bookmark-plus-fill.svg' %}{%else%}{% static 'icons/bookmark-plus.svg' %}{%endif%}" alt="" />
+                    </button>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="manga-info">
+            <div>
+                <div class="more-info-grid">
+                    <div class="info-container">
+                        <span class="age-restriction">Ranked: </span>
+                        <span>{%if manga.rank%}{{manga.rank}}{%else%}🤷‍♂️{%endif%}</span>
+                    </div>
+                    <div class="info-container">
+                        <span class="age-restriction">Score: </span>
+                        <span>{%if manga.score%}{{manga.score}}{%else%}🤷‍♂️{%endif%}</span>
+                    </div>
+                    <div class="info-container">
+                        <span class="age-restriction">Scored by: </span>
+                        <span>{%if manga.scored_by%}{{manga.scored_by}}{%else%}🤷‍♂️{%endif%}</span>
+                    </div>
+                    <div class="info-container">
+                        <span class="age-restriction">Rated: </span>
+                        <span>{%if manga.rated %}{{manga.rated}}{%else%}🤷‍♂️{%endif%}</span>
+                    </div>
+                    <div class="info-container">
+                        <span class="age-restriction">Popularity: </span>
+                        <span>{%if manga.popularity%}{{manga.popularity}}{%else%}🤷‍♂️{%endif%}</span>
+                    </div>
+                    <div class="info-container">
+                        <span class="age-restriction">Publishing: </span>
+                        <span>{%if manga.publishing%}{{manga.publishing}}{%else%}🤷‍♂️{%endif%}</span>
+                    </div>
+                    <div class="info-container">
+                        <span class="age-restriction">Chapters: </span>
+                        <span>{%if manga.chapters%}{{manga.chapters}}{%else%}🤷‍♂️{%endif%}</span>
+                    </div>
+                </div>
+                <div class="even-more-info">
+                    <div class="times">
+                        <center><h2>TIMES</h2></center>
+
+                        <p class="from">aired from: {% if manga.from %} <span>{{manga.from}}</span> {% else %} <span>🤷‍♂️</span> {%endif%}</p>
+                        <p class="to">aired to: {% if manga.to %} <span>{{manga.to}}</span> {% else %} <span>🤷‍♂️</span> {% endif %}</p>
+                        <p class="duration">Volumes: <span>{% if manga.volumes %}{{manga.volumes}}{% else %}🤷‍♂️{% endif %}</span></p>
+                    </div>
+                    <div class="name-demographics">
+                        <center><h2>TITLES</h2></center>
+                           {% for type, name in manga.titles  %}
+                        <p class="type-title"><span class="type">{{type}}</span>: <span class="title">{{name}}</span></p>
+                           {% endfor %}
+
+                    </div>
+                    <div class="more-info-production">
+                        <center><h2>MORE INFO</h2></center>
+                        <p class="production">{% if manga.authors %}Author:  {% for name, url in manga.authors %} <a class="link-genres" href="{{url}}">{{name}}</a>   {% endfor %} {% endif %}</p>
+                        <p class="studios">{% if manga.studios %}Themes:  {% for name, url in manga.studios %} <a class="link-genres" href="{{url}}">{{name}}</a>   {% endfor %} {% endif %}</p>
+                        <p class="licensors">{% if manga.serializations %}Serialization:  {% for name, url in manga.serializations %} <a class="link-genres" href="{{url}}">{{name}}</a>   {% endfor %} {% endif %}</p>
+                        <p class="demographics">{% if manga.demographics %}Demographics:  {% for name, url in manga.demographics %} <a class="link-demographics" href="{{url}}">{{name}}</a>   {% endfor %} {% endif %}</p>
+                        <p class="genres">{% if manga.genres %}Genres:  {% for name, url in manga.genres %} <a class="link-genres" href="{{url}}">{{name}}</a>   {% endfor %} {% endif %}</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="synopsis">
+                <h2>Synopsis:</h2>
+                <div class="synopsis-border">
+                    <p>
+                        {% if manga.synopsis %}{{manga.synopsis}}{% else %}🤷‍♂️{% endif %}
+                    </p>
+                    <p>
+                        {% if more_info %}<br><br> {{more_info}} {% endif %}
+                    </p>
+                </div>
+            </div>
+
+        </div>
+        </div>
+    </div>
+{% endfor %}
+
+<div style="display: grid; grid-template-rows: auto auto; grid-row-gap: 10px; margin-top: 20px;">
+    {% include 'characters.html' %}
+</div>
+<script>
+  function later(mal_id, type) {
+    console.log("Adding to watch later:", mal_id);
+    var csrftoken = getCookie('csrftoken');
+    // Send mal_id to your Django view to add to watch later list
+    $.ajax({
+      url: "{% url 'manga-page' %}",
+      type: "POST",
+      headers: { "X-CSRFToken": csrftoken },
+      data: {'mal_id': mal_id, 'status': 'later', 'type': type},
+      success: function(response) {
+      console.log(response);
+        let image = document.getElementById(`laterImg-${mal_id}`);
+        if (response.later) {
+          image.src = '/static/icons/bookmark-plus-fill.svg';
+        }
+        else {
+          image.src = '/static/icons/bookmark-plus.svg';
+        }
+        // Handle success response if needed
+      },
+      error: function(xhr, errmsg, err) {
+        console.log(xhr.status + ": " + xhr.responseText);
+        // Handle error if needed
+      }
+    });
+  }
+
+  function like(mal_id, type) {
+    console.log("Liking:", mal_id);
+    var csrftoken = getCookie('csrftoken');
+    // Send mal_id to your Django view to like the manga
+    $.ajax({
+      url: "{% url 'manga-page' %}",
+      type: "POST",
+      headers: { "X-CSRFToken": csrftoken },
+      data: {'mal_id': mal_id, 'status': 'like', 'type': type},
+      success: function(response) {
+        console.log(response);
+        let image = document.getElementById(`likedImg-${mal_id}`);
+        if (response.like) {
+          console.log(response);
+            image.src = '/static/icons/heart-fill.svg';
+          }
+          else {
+            image.src = '/static/icons/heart.svg';
+          }
+          // Handle success response if needed
+        },
+        error: function(xhr, errmsg, err) {
+          console.log(xhr.status + ": " + xhr.responseText);
+          // Handle error if needed
+        }
+    });
+  }
+
+  // Function to get CSRF cookie
+  function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+      var cookies = document.cookie.split(';');
+      for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i].trim();
+        // Does this cookie string begin with the name we want?
+        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+</script>
+</body>
+</html>

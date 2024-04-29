@@ -1,0 +1,94 @@
+body {
+  background-color: black;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.img-container {
+  width: 150px;
+  height: 150px;
+  border: 2px rgb(25, 135, 84) solid;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: lightgrey;
+}
+.img-container img {
+  width: 100%;
+  height: 100%;
+}
+.form {
+ border: 3px rgb(25, 135, 84) solid;
+ border-radius: 8px;
+ max-width: auto;
+ width: 500px;
+}
+.input-container {
+  margin: 15px;
+
+}
+textarea {
+  width: 100%;
+}
+input {
+  width: 100%;
+  height: 30px;
+}
+input,
+textarea {
+  border-style: solid;
+  border-color: rgb(25, 135, 84);
+  border-radius: 5px;
+}
+input:focus,
+textarea:focus {
+  border-color: rgb(25, 135, 84);
+}
+
+.button-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button {
+  background-color: #fff;
+  border: 1px solid rgb(20, 130, 79);
+  border-radius: 8px;
+  box-shadow: rgba(10, 120, 70, .5) 0 2px 5px 0;
+  box-sizing: border-box;
+  color: #0f1111;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Amazon Ember",sans-serif;
+  font-size: 13px;
+  line-height: 29px;
+  padding: 0 10px 0 11px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  width: 150px;
+  height: 35px;
+}
+
+button:hover {
+  background-color: #f7fafa;
+}
+
+button:focus {
+  border-color: rgb(25, 135, 84);
+  box-shadow: rgba(25, 135, 84, .5) 0 2px 5px 0;
+  outline: 0;
+}
+.bottom-links {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-left: 8px;
+}

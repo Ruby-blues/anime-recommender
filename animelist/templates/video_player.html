@@ -1,0 +1,67 @@
+{% load static %}
+<div class="video-container show-controls">
+      <video id="myVideo" src="{{video_info.stream}}" poster="{{video_info.thumbnail}}">
+      </video>
+      <div class="media-controls">
+        <div class="range-container">
+          <div class="video-timeline">
+            <span>00:00</span>
+            <input type="range" min="0" max="100" class="progress-bar" />
+          </div>
+        </div>
+
+        <div class="video-controls">
+          <div class="flex-item">
+            <img class="volume video-icon" src="{% static 'icons/volume.svg' %}" alt="" />
+            <input type="range" class="volume-bar" min="0" max="1" step="any" />
+            <span class="current-time">00:00</span><span>/</span
+            ><span class="video-duration">00:00</span>
+          </div>
+
+          <div class="flex-item">
+            <img class="rewind video-icon" src="{% static 'icons/rewind.svg' %}" alt="" />
+            <img
+              class="toggle-play video-icon"
+              src=" {% static 'icons/play.svg' %}"
+              onclick="play()"
+              alt=""
+            />
+
+            <img
+              class="fast-forward video-icon"
+              src="{% static 'icons/fast_forward.svg' %}"
+              alt=""
+            />
+          </div>
+
+          <div class="flex-item">
+            <div class="playback">
+              <img
+                src="{% static 'icons/play_back_options.svg' %}"
+                class="playback-speed video-icon"
+                alt=""
+              />
+
+              <div class="speed-option-container">
+                <span data-speed="2">2x</span>
+                <span data-speed="1.5">1.5x</span>
+                <span class="active" data-speed="1">Normal</span>
+                <span data-speed="0.75">0.75x</span>
+                <span data-speed="0.5">0.5x</span>
+              </div>
+            </div>
+            <img class="loop on" src="{% static 'icons/loop_off.svg' %}" alt="" />
+            <img
+              class="pic-in-pic video-icon"
+              src="{% static 'icons/picture_in_picture.svg' %}"
+              alt=""
+            />
+            <img
+              class="fullscreen video-icon"
+              src="{% static 'icons/fullscreen.svg' %}"
+              alt=""
+            />
+          </div>
+        </div>
+      </div>
+    </div>

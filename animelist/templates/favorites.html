@@ -1,0 +1,17 @@
+    {% extends 'likes_later_temp.html' %}
+    {% load static %}
+
+    {%block type%}Likes{%endblock%}
+{%block content%}
+
+    <div class="center">
+        <div class="button-container">
+            <a href="{% url 'liked-page' 'anime'%}"><button class="first-filter">ANIME</button></a>
+            <a href="{% url 'liked-page' 'all'%}"><button class="middle-filter">ALL</button></a>
+            <a href="{% url 'liked-page' 'manga'%}"><button class="end-filter">MANGA</button></a>
+        </div>
+    </div>
+
+        {% include 'likes_later_card_temp.html' %}
+
+{%endblock%}

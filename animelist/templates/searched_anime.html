@@ -1,0 +1,18 @@
+{% block content %}
+{% if searched %}
+<center>
+        <h1>{{searched}}</h1>
+        {% if media_type == 'anime' %}
+        {% include 'index.html' %}
+        {% else %}
+        {% include 'manga_info_card.html' %}
+        {% endif %}
+    </center>
+
+{% else %}
+    <center>
+        <h1>YOU NEED TO SEARCH FOR SOMETHING 🙄</h1>
+    </center>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,24 @@
+.anime-list-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  margin-top: 30px;
+  height: 400px;
+  column-gap: 10px;
+  row-gap: 40px;
+}
+
+@media (max-width: 750px) {
+  .anime-list-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 751px) and (max-width: 999px) {
+  .video-grid {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+@media (max-width: 1000px) {
+  .video-grid {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  }
+}

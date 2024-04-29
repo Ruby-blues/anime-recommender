@@ -1,0 +1,228 @@
+<html>
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'css/more_anime_info.css' %}">
+    <link rel="stylesheet" href="{% static 'css/loader.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/video_player.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/character.css' %}" />
+    <script src="{% static 'javascript/loader.js' %}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>{{name.name}}</title>
+</head>
+<body>
+{% include 'loading.html' %}
+{% for anime in anime_api_data %}
+    <div class="grid">
+     <!--row 1-->
+    <header>
+        <div class="name-header">
+            <h1><a href="{{anime.url}}">{% if anime.english_title %} {{anime.english_title}} {%else%} {{anime.default_title}} {% endif %}</a></h1>
+        </div>
+    </header>
+
+     <!--row 2-->
+    <div class="anime-info-grid">
+        <div class="img-container">
+            <img class="image" src="{{anime.img}}" alt="{{anime.default_title}}">
+            <div class="icons-container">
+                {% if request.user.is_authenticated %}
+                <button id="liked-{{ anime.mal_id }}" class="liked-btn" onclick="like({{ anime.mal_id }}, '{{anime.type}}')">
+                    <img id="likedImg-{{ anime.mal_id }}" class="liked" src="{% if anime.like %}{% static 'icons/heart-fill.svg' %}{% else %}{% static 'icons/heart.svg' %}{%endif%}" alt="" />
+                </button>
+
+                <button id="later-{{ anime.mal_id }}" class="watch-later-btn" onclick="later({{ anime.mal_id }}, '{{anime.type}}')">
+                    <img id="laterImg-{{ anime.mal_id }}" class="book-mark" src="{% if anime.later %}{% static 'icons/bookmark-plus-fill.svg' %}{%else%}{% static 'icons/bookmark-plus.svg' %}{%endif%}" alt="" />
+                </button>
+                {% endif %}
+            </div>
+        </div>
+        <div class="anime-info">
+            <div>
+                <div class="more-info-grid">
+                    <div class="info-container">
+                        <span class="age-restriction">Ranked: </span>
+                        <span>{{anime.rank}}</span>
+                    </div>
+                    <div class="info-container">
+                        <span class="age-restriction">Score: </span>
+                        <span>{{anime.score}}</span>
+                    </div>
+                    <div class="info-container">
+                        <span class="age-restriction">Scored by: </span>
+                        <span>{{anime.scored_by}}</span>
+                    </div>
+                    <div class="info-container">
+                        <span class="age-restriction">Rated: </span>
+                        <span>{{anime.rated}}</span>
+                    </div>
+                    <div class="info-container">
+                        <span class="age-restriction">Popularity: </span>
+                        <span>{{anime.popularity}}</span>
+                    </div>
+                    <div class="info-container">
+                        <span class="age-restriction">Airing: </span>
+                        <span>{{anime.airing}}</span>
+                    </div>
+                    <div class="info-container">
+                        <span class="age-restriction">Episodes: </span>
+                        <span>{%if anime.episode%}{{anime.episode}}{%else%}🤷‍♂️{%endif%}</span>
+                    </div>
+                </div>
+                <div class="even-more-info">
+                    <div class="times">
+                        <center><h2>TIMES</h2></center>
+
+                        <p class="from">aired from: {% if anime.aired_from %} <span>{{anime.aired_from}}</span> {% else %} <span>🤷‍♂️</span> {%endif%}</p>
+                        <p class="to">aired to: {% if anime.aired_to %} <span>{{anime.aired_to}}</span> {% else %} <span>🤷‍♂️</span> {% endif %}</p>
+                        <p class="duration">Episode duration: <span>{{anime.duration}}</span></p>
+                    </div>
+                    <div class="name-demographics">
+                        <center><h2>TITLES</h2></center>
+                           {% for type, name in anime.titles  %}
+                        <p class="type-title"><span class="type">{{type}}</span>: <span class="title">{{name}}</span></p>
+                           {% endfor %}
+
+                    </div>
+                    <div class="more-info-production">
+                        <center><h2>MORE INFO</h2></center>
+                        {% url 'manga-info-page' info.mal_id|urlencode info.title|urlencode as manga_url %}
+                        <p class="source">{% if anime.source %} Source: <a href="{{manga_url}}">{{anime.source}}</a> {%endif %}</p>
+                        <p class="production">{% if anime.producers %}Production:  {% for name, url in anime.producers %} <a class="link-genres" href="{{url}}">{{name}}</a>   {% endfor %} {% endif %}</p>
+                        <p class="studios">{% if anime.studios %}Studios:  {% for name, url in anime.studios %} <a class="link-genres" href="{{url}}">{{name}}</a>   {% endfor %} {% endif %}</p>
+                        <p class="licensors">{% if anime.licensors %}Licensors:  {% for name, url in anime.licensors %} <a class="link-genres" href="{{url}}">{{name}}</a>   {% endfor %} {% endif %}</p>
+                        <p class="demographics">{% if anime.demographics %}Demographics:  {% for name, url in anime.demographics %} <a class="link-demographics" href="{{url}}">{{name}}</a>   {% endfor %} {% endif %}</p>
+                        <p class="genres">{% if anime.genres %}Genres:  {% for name, url in anime.genres %} <a class="link-genres" href="{{url}}">{{name}}</a>   {% endfor %} {% endif %}</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="synopsis">
+                <h2>Synopsis:</h2>
+                <div class="synopsis-border">
+                    <p>{% if anime.synopsis %}{{anime.synopsis}}{% else %}🤷‍♂️{% endif %}</p>
+                    <p>
+                        {% if more_info %}<br><br> {{more_info}} {% endif %}
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="video-grid">
+         <center><h2>Trailer</h2></center>
+         <div class="video-and-info-grid">
+             {% for video_info in video_url %}
+                 {% if video_info.available %}
+                 {% include 'video_player.html'%}
+                 {% else %}
+                 <center><p>No video</p></center>
+                 {% endif %}
+             <div class="video-info">
+                 <span class="video-title">Title: {{video_info.title}}</span>
+                 <span class="video-views">Views: {{video_info.views}}</span>
+                 <span class="video-released">Released: {{video_info.released}}</span>
+             </div>
+             {% endfor %}
+         </div>
+     </div>
+
+    <div style="display: grid; grid-template-rows: auto auto; grid-row-gap 10px; margin-top: 20px;">
+        {% include 'characters.html' %}
+    </div>
+
+
+ </div>
+{% endfor %}
+    <script src="{% static 'javascript/video_lazy_loading.js' %}"></script>
+    <script src="{% static 'javascript/video_player.js' %}"></script>
+    <script>
+  function later(mal_id, type) {
+    console.log("Adding to watch later:", mal_id);
+    var csrftoken = getCookie('csrftoken');
+    // Send mal_id to your Django view to add to watch later list
+    $.ajax({
+      url: "{% url 'aurora' %}",
+      type: "POST",
+      headers: { "X-CSRFToken": csrftoken },
+      data: {'mal_id': mal_id, 'status': 'later', 'type': type},
+      success: function(response) {
+        let image = document.getElementById(`laterImg-${mal_id}`);
+        if (response.later) {
+          image.src = '/static/icons/bookmark-plus-fill.svg';
+        }
+        else {
+          image.src = '/static/icons/bookmark-plus.svg';
+        }
+        // Handle success response if needed
+      },
+      error: function(xhr, errmsg, err) {
+        console.log(xhr.status + ": " + xhr.responseText);
+        // Handle error if needed
+      }
+    });
+  }
+
+  function like(mal_id, type) {
+    console.log("Liking:", mal_id);
+    var csrftoken = getCookie('csrftoken');
+    // Send mal_id to your Django view to like the anime
+    $.ajax({
+      url: "{% url 'aurora' %}",
+      type: "POST",
+      headers: { "X-CSRFToken": csrftoken },
+      data: {'mal_id': mal_id, 'status': 'like', 'type': type},
+      success: function(response) {
+        console.log(response);
+        let image = document.getElementById(`likedImg-${mal_id}`);
+        if (response.like) {
+          console.log(response);
+            image.src = '/static/icons/heart-fill.svg';
+          }
+          else {
+            image.src = '/static/icons/heart.svg';
+          }
+          // Handle success response if needed
+        },
+        error: function(xhr, errmsg, err) {
+          console.log(xhr.status + ": " + xhr.responseText);
+          // Handle error if needed
+        }
+    });
+  }
+
+  // Function to get CSRF cookie
+  function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+      var cookies = document.cookie.split(';');
+      for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i].trim();
+        // Does this cookie string begin with the name we want?
+        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+</script>
+</body>
+</html>
+
+<!--    <ul>
+        {% for anime in anime_api_data %}
+        {% for name, id in anime.genres %}
+        <li>
+            {{name}}, {{id}}
+        </li>
+        {% endfor %}
+        {% endfor %}
+    </ul>
+    -->

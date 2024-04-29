@@ -1,0 +1,64 @@
+.character-main-grid,
+.character-support-grid {
+  display: grid;
+  grid-template-rows: auto auto;
+  grid-row-gap: 15px;
+}
+.character-main-grid span,
+.character-support-grid span {
+  display: inline;
+  height: 20px;
+  font-size: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-bottom-style: solid;
+  border-bottom-color: rgb(25, 135, 84);
+}
+.scrollable-div {
+    width: 100%px; /* Adjust width as needed */
+    max-height: 160px; /* Adjust height as needed */
+    overflow: auto; /* This will add a scroll bar when content overflows */
+    /* Optional: Add border for visual clarity */
+    padding: 10px; /* Optional: Add padding for spacing */
+}
+  /* Customizing scrollbar */
+.scrollable-div::-webkit-scrollbar {
+    width: 10px; /* Width of the scrollbar */
+}
+
+.scrollable-div::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Color of the scrollbar track */
+    border-radius: 6px;
+}
+
+.scrollable-div::-webkit-scrollbar-thumb {
+    background: rgb(25, 135, 84); /* Color of the scrollbar thumb */
+    border-radius: 6px; /* Rounded corners of the scrollbar thumb */
+}
+
+.scrollable-div::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Color of the scrollbar thumb on hover */
+}
+.character-image-container img {
+  object-fill: cover;
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+}
+.character-image-container {
+  display: inline-block;
+  border-radius: 50%;
+  margin: 5px;
+  border-width: 2px;
+  border-style: solid;
+  border-color: rgb(25, 135, 84);
+  height: 120px;
+  width: 130px;
+  overflow: hidden;
+  transition: all 0.1ms ease-in-out;
+  cursor: pointer;
+}
+.character-image-container:hover,
+.character-image-container img:hover {
+  transform: scale(105%);
+}

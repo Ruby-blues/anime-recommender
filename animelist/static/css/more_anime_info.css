@@ -1,0 +1,278 @@
+body {
+    font-family: arial;
+}
+.grid {
+    display: grid;
+    grid-template-rows: auto auto auto;
+    grid-row-gap: 15px;
+}
+
+header a {
+    color: white;
+    text-decoration: none;
+}
+a:hover {
+    color: red;
+}
+.name-header {
+    border-style: double;
+    border-width: 3px
+    border-color: red;
+    border-radius: 4px;
+}
+.name-header h1 {
+    margin-left: 20px;
+}
+
+.anime-info-grid {
+    display: grid;
+    grid-template-columns: 20% 1fr;
+    gap: 10px;
+}
+.img-container {
+    width: 100%;
+    position: relative;
+}
+.img-container:hover {
+  transform: scale(102%);
+  .image {
+    opacity: 0.5;
+  }
+}
+.image {
+    border-width: 2px;
+    border-style: solid;
+    width: 100%;
+    border-radius: 8px;
+    height: 422px;
+}
+.icons-container {
+    margin-left: 75px;
+    text-align: center;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+}
+.icons-container img {
+    width: 18px;
+    margin-top: 10px;
+    cursor: pointer;
+    padding-bottom: 4px;
+}
+.liked,
+.book-mark {
+    width: 18px;
+    margin-top: 10px;
+
+    padding-bottom: 4px;
+}
+.book-mark {
+    padding-left: 10px;
+    padding-right: 5px;
+}
+.liked-btn,
+.watch-later-btn {
+    cursor: pointer;
+    height: 30px;
+    padding: 0px;
+    background-color: transparent;
+    border: 0px;
+}
+.anime-info {
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-rows-gap: 10px;
+}
+.more-info-grid{
+    display: grid;
+    grid-template-columns: repeat(7, auto);
+    height:30px;
+    gap: 10px;
+}
+.info-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    align-items: center;
+    border-width: 2px;
+    border-style: double;
+    border-radius: 3px;
+    display: inline;
+    padding-top: 4px;
+    width: auto;
+}
+.info-container span{
+    padding-left: 5px;
+}
+.age-restriction {
+    font-size: 18px;
+}
+.to span,
+.duration span,
+.from span {
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    display: inline;
+}
+.to,
+.duration,
+.from {
+    padding-left: 8px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding-right: 5px;
+}
+.even-more-info {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  gap: 20px;
+  height: 200px;
+}
+.times,
+.name-demographics,
+.more-info-production {
+  border-width: 2px;
+  border-style: solid double;
+  margin-top: 4px;
+  border-radius: 5px;
+  height: auto;
+  max-height: 200px;
+  overflow: auto;
+}
+.times::-webkit-scrollbar,
+.name-demographics::-webkit-scrollbar,
+.more-info-production::-webkit-scrollbar {
+    width: 10px; /* Width of the scrollbar */
+}
+
+.times::-webkit-scrollbar-track,
+.name-demographics::-webkit-scrollbar-track,
+.more-info-production::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Color of the scrollbar track */
+}
+
+.times::-webkit-scrollbar-thumb,
+.name-demographics::-webkit-scrollbar-thumb,
+.more-info-production::-webkit-scrollbar-thumb {
+    background: rgb(25, 135, 84); /* Color of the scrollbar thumb */
+    border-radius: 6px; /* Rounded corners of the scrollbar thumb */
+}
+
+.times::-webkit-scrollbar-thumb:hover,
+.name-demographics::-webkit-scrollbar-thumb:hover,
+.more-info-production::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Color of the scrollbar thumb on hover */
+}
+
+.times center h2,
+.name-demographics center h2,
+.more-info-production h2 {
+  margin-top: 3px;
+  margin-bottom: 0px;
+}
+.name-list {
+  list-style-type: none; /* Remove the bullet points */
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+.type {
+  font-weight: bold;
+}
+.title {
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  display: inline;
+}
+.type-title {
+  margin: 4px;
+  padding-left: 8px;
+}
+.demographics,
+.genres,
+.production,
+.studios,
+.licensors,
+.source {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.genres {
+    margin-bottom:1px;
+}
+.link-genres,
+.link-demographics {
+    text-decoration: none;
+    color: white;
+}
+.link-genres:hover ,
+.link-demographics:hover {
+    color: red;
+}
+
+.synopsis p {
+    margin-bottom: 5px;
+    margin-top: 5px;
+    font-size: 16px;
+}
+.synopsis h2 {
+    padding-top: 5px;
+    margin-top: 5px;
+}
+.synopsis-border {
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 5px;
+    padding-left: 5px;
+    height: auto;
+    max-height: 115px;
+    overflow: auto;
+}
+.synopsis-border::-webkit-scrollbar {
+    width: 10px; /* Width of the scrollbar */
+}
+
+.synopsis-border::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Color of the scrollbar track */
+}
+
+.synopsis-border::-webkit-scrollbar-thumb {
+    background: rgb(25, 135, 84); /* Color of the scrollbar thumb */
+    border-radius: 6px; /* Rounded corners of the scrollbar thumb */
+}
+
+.synopsis-border::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Color of the scrollbar thumb on hover */
+}
+
+.video-grid {
+    display: grid;
+    grid-template-rows: auto auto;
+}
+.video-and-info-grid {
+    display: grid;
+    grid-template-columns: 27% auto;
+}
+.video-box {
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 6px;
+    height: 250px;
+    width: 350px;
+}
+.video-info {
+    padding-top: 60px;
+}
+.video-title,
+.video-views,
+.video-released {
+    display: grid;
+    grid-template-rows: repeat(3, auto);
+    grid-row-gap: 5px;
+    margin: 20px;
+    width: auto;
+}
+video {
+    width: 100%;
+    height: 100%;
+}
