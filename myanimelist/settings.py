@@ -133,7 +133,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 STATICFILES_DIRS = [
     BASE_DIR/'animelist/static/',
-    BASE_DIR/'userprofile/static/',
+    BASE_DIR/'static/',
 ]
 django_heroku.settings(locals())
 
