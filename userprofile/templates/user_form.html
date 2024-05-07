@@ -51,7 +51,7 @@
         </div>
         {% else %}
             <div class="img-container">
-                <img src="{% if request.user.is_authenticated %}{{ request.user.profile_pic.url }}{% else %}{% static 'icons/user.png' %}{% endif %}" alt="">
+                <img src="{% if request.user.is_authenticated %}{{ request.user.profile_pic.url }}{% else %}{% static '/icons/user.png' %}{% endif %}" alt="">
             </div>
         <div class="form">
           <form action="" method="post" enctype="multipart/form-data">
