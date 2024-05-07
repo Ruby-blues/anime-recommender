@@ -36,7 +36,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     user_name = models.CharField(max_length=150, unique=True)
     first_name = models.CharField(max_length=150, blank=True)
     last_name = models.CharField(max_length=150, blank=True)
-    profile_pic = models.ImageField(blank=True, null=True, default='/icons/user.png')
+    profile_pic = models.ImageField(blank=True, null=True, default='/userprofile/icons/user.png')
     about = models.TextField(lazy('about'), max_length=500, blank=True)
 
     is_active = models.BooleanField(default=True)
