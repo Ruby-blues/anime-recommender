@@ -25,7 +25,7 @@
               <img
                 onclick="userInfo()"
                 class="user-pic-icon"
-                src="{%if request.user.is_authenticated %}{{request.user.profile_pic.url}}{% else %}{% static '/images/icons/user.png' %}{%endif%}"
+                src="{%if request.user.is_authenticated %}{{request.user.profile_pic.url}}{% else %}{% static '/icons/user.png' %}{%endif%}"
                 alt="user-icon"
               />
             </div>
